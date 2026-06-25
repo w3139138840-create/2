@@ -1,0 +1,8 @@
+﻿node_modules/
+.env
+*.log
+screenshot.png
+automation.json
+automation_instructions.txt
+feishu_sender.py
+config.json

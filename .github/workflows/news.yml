@@ -1,17 +1,26 @@
 name: 每日新闻早报
 on:
-  schedule:
-    - cron: "* * * * *"
+  # 手动触发按钮
   workflow_dispatch:
+  # 定时：UTC23点 = 北京时间次日7点执行
+  schedule:
+    - cron: "0 23 * * *"
+  # 提交main分支自动运行，方便调试
+  push:
+    branches: [ main ]
+
 jobs:
   news:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: 拉取代码
+        uses: actions/checkout@v4
+      - name: 安装Node20
+        uses: actions/setup-node@v4
         with:
           node-version: "20"
-      - run: node run_daily.mjs
+      - name: 执行新闻推送脚本
+        run: node run_daily.mjs
         env:
           FEISHU_APP_ID: ${{ secrets.FEISHU_APP_ID }}
           FEISHU_APP_SECRET: ${{ secrets.FEISHU_APP_SECRET }}

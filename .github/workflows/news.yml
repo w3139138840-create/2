@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   # 定时：UTC23点 = 北京时间次日7点执行
   schedule:
-    - cron: "0 23 * * *"
+    - cron: "* * * * *"
   # 提交main分支自动运行，方便调试
   push:
     branches: [ main ]
